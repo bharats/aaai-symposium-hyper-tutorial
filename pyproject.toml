@@ -1,0 +1,31 @@
+[project]
+name = "aaai-symposium-hyper-tutorial"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Bharat Srikishan", email = "bharats@lanl.gov" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "h5netcdf>=1.8.2",
+    "h5py>=3.16.0",
+    "ipykernel>=7.4.0",
+    "jupyter-collaboration>=5.0.4",
+    "jupyterlab>=4.6.4",
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.4",
+    "phiflow>=3.4.0",
+    "scipy>=1.18.1",
+    "torch>=2.14.1",
+    "tqdm>=4.70.1",
+    "tyro>=1.0.16",
+    "xarray>=2026.9.0",
+]
+
+[project.scripts]
+aaai-symposium-hyper-tutorial = "aaai_symposium_hyper_tutorial:main"
+
+[build-system]
+requires = ["uv_build>=0.12.0,<0.13.0"]
+build-backend = "uv_build"
