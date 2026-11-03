@@ -110,40 +110,24 @@ EOF
 echo ">>> 7. Pre-loading Navier–Stokes dataset..."
 mkdir -p "$DATA_DIR"
 
-wget -q --show-progress \
-    -O "$DATA_DIR/ns_data_64_1000.h5" \
-    "https://huggingface.co/datasets/scailab/hyper-navier-stokes-64-1000/resolve/main/ns_data_64_1000.h5"
+uvx hf download --repo-type dataset scailab/hyper-navier-stokes-64-1000 ns_data_64_1000.h5 --local-dir "$DATA_DIR/"
 
-wget -q --show-progress \
-    -O "$DATA_DIR/ns_boundary_data_64_1000.h5" \
-    "https://huggingface.co/datasets/bharats/hyper-navier-stokes-boundary-64-1000/resolve/main/ns_boundary_data_64_1000_test.h5"
+uvx hf download --repo-type dataset bharats/hyper-navier-stokes-boundary-64-1000 ns_boundary_data_64_1000.h5 --local-dir "$DATA_DIR/"
 
 echo ">>> 8. Pre-downloading model checkpoints..."
 mkdir -p "$CKPT_DIR"
 
-wget -q --show-progress \
-    -O "$CKPT_DIR/unet-400-lr-0.0001-bs-8-epochs-200-1_model_checkpoint_199_final.pt" \
-    "https://huggingface.co/scailab/hyper-models/resolve/main/unet-400-lr-0.0001-bs-8-epochs-200-1_model_checkpoint_199_final.pt"
+uvx hf download --repo-type model scailab/hyper-models unet-400-lr-0.0001-bs-8-epochs-200-1_model_checkpoint_199_final.pt --local-dir "$CKPT_DIR/"
 
-wget -q --show-progress \
-    -O "$CKPT_DIR/unet-800-lr-0.0001-bs-8-epochs-200-1_model_checkpoint_199_final.pt" \
-    "https://huggingface.co/scailab/hyper-models/resolve/main/unet-800-lr-0.0001-bs-8-epochs-200-1_model_checkpoint_199_final.pt"
+uvx hf download --repo-type model scailab/hyper-models unet-800-lr-0.0001-bs-8-epochs-200-1_model_checkpoint_199_final.pt --local-dir "$CKPT_DIR/"
 
-wget -q --show-progress \
-    -O "$CKPT_DIR/refiner_unet_800_shuffle_lr_0.0001_ns_64x64_model_checkpoint_199.pt" \
-    "https://huggingface.co/scailab/hyper-models/resolve/main/refiner_unet_800_shuffle_lr_0.0001_ns_64x64_model_checkpoint_199.pt"
+uvx hf download --repo-type model scailab/hyper-models refiner_unet_800_shuffle_lr_0.0001_ns_64x64_model_checkpoint_199.pt --local-dir "$CKPT_DIR/"
 
-wget -q --show-progress \
-    -O "$CKPT_DIR/actor-0.3-reinforce-eta-0.0-lr-1e-05_model_checkpoint_29.pt" \
-    "https://huggingface.co/scailab/hyper-models/resolve/main/actor-0.3-reinforce-eta-0.0-lr-1e-05_model_checkpoint_29.pt"
+uvx hf download --repo-type model scailab/hyper-models actor-0.3-reinforce-eta-0.0-lr-1e-05_model_checkpoint_29.pt --local-dir "$CKPT_DIR/"
 
-wget -q --show-progress \
-    -O "$CKPT_DIR/boundary-unet-800-lr-0.0001-bs-8-epochs-200-1_model_checkpoint_199_final.pt" \
-    "https://huggingface.co/bharats/hyper-models/resolve/main/boundary-unet-800-lr-0.0001-bs-8-epochs-200-1_model_checkpoint_199_final.pt"
+uvx hf download --repo-type model bharats/hyper-models boundary-unet-800-lr-0.0001-bs-8-epochs-200-1_model_checkpoint_199_final.pt --local-dir "$CKPT_DIR/"
 
-wget -q --show-progress \
-    -O "$CKPT_DIR/boundary-actor-0.3-reinforce-eta-0.0-lr-1e-05_model_checkpoint_best.pt" \
-    "https://huggingface.co/bharats/hyper-models/resolve/main/boundary-actor-0.3-reinforce-eta-0.0-lr-1e-05_model_checkpoint_best.pt"
+uvx hf download --repo-type model bharats/hyper-models boundary-actor-0.3-reinforce-eta-0.0-lr-1e-05_model_checkpoint_best.pt --local-dir "$CKPT_DIR/"
 
 echo ">>> 9. Fixing permissions..."
 sudo chown -R ubuntu:ubuntu \
