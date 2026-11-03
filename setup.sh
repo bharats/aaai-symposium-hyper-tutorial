@@ -152,6 +152,37 @@ sudo chown -R ubuntu:ubuntu \
     "$KERNEL_DIR" \
     "$KERNEL_LAUNCHER"
 
+echo ">>> 10. Starting JupyterLab without authentication..."
+
+JUPYTER_LOG="$WORKSPACE_DIR/jupyterlab.log"
+JUPYTER_PID_FILE="$WORKSPACE_DIR/jupyterlab.pid"
+
+nohup "$VENV_DIR/bin/jupyter" lab \
+    --ServerApp.root_dir="$REPO_DIR" \
+    --ServerApp.ip="0.0.0.0" \
+    --ServerApp.port=8888 \
+    --ServerApp.port_retries=0 \
+    --ServerApp.open_browser=False \
+    --ServerApp.allow_remote_access=True \
+    --IdentityProvider.token="" \
+    --PasswordIdentityProvider.hashed_password="" \
+    --PasswordIdentityProvider.password_required=False \
+    > "$JUPYTER_LOG" 2>&1 &
+
+JUPYTER_PID=$!
+echo "$JUPYTER_PID" > "$JUPYTER_PID_FILE"
+
+sleep 2
+
+if ! kill -0 "$JUPYTER_PID" 2>/dev/null; then
+    echo "ERROR: JupyterLab did not start. Recent logs:"
+    tail -n 50 "$JUPYTER_LOG"
+    exit 1
+fi
+
+echo ">>> JupyterLab started on port 8888 with no authentication."
+echo ">>> Logs: $JUPYTER_LOG"
+
 echo ">>> SETUP COMPLETE!"
 echo ">>> In Jupyter, select: Python 3.12 (HyPER Tutorial)"
 
